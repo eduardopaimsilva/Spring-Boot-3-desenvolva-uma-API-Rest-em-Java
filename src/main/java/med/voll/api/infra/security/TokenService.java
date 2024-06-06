@@ -26,11 +26,12 @@ public class TokenService {
                     .withSubject(usuario.getLogin())
                     .withExpiresAt(dataExpiracao())
                     .sign(algoritmo);
-        } catch (JWTCreationException exception) {
-            throw new RuntimeException("erro ao gerrar token jwt", exception);
+        } catch (JWTCreationException exception){
+            throw new RuntimeException("erro ao gerar token jwt", exception);
         }
     }
-    public String getSubject(String tokenJWT){
+
+    public String getSubject(String tokenJWT) {
         try {
             var algoritmo = Algorithm.HMAC256(secret);
             return JWT.require(algoritmo)
@@ -42,7 +43,9 @@ public class TokenService {
             throw new RuntimeException("Token JWT inválido ou expirado!");
         }
     }
-        private Instant dataExpiracao() {
-            return LocalDateTime.now().plusHours(5).toInstant(ZoneOffset.of("-03:00"));
+
+    private Instant dataExpiracao() {
+        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
-    }
+
+}
